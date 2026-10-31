@@ -1,206 +1,280 @@
 # Task Management System
 
-A web-based task management application built with **Python and Django** as my Computer Science engineering final project.
+**A Django-based task management web application with user authentication, personal task tracking, search, filtering, and automated tests.**
 
-The system allows users to register, sign in and manage personal tasks through a responsive dashboard. It demonstrates a complete Django workflow: authentication, CRUD, relational data, forms, templates, search/filtering, authorization and automated testing.
+[![Django](https://img.shields.io/badge/Django-6.0.2-092E20?logo=django&logoColor=white)](https://www.djangoproject.com/)
+![Python](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)
+![Database](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite&logoColor=white)
+![Tests](https://img.shields.io/badge/Tests-Django%20TestCase-0A9EDC)
 
-## Key features
+## Overview
 
-- User registration, login and logout
-- Protected pages for authenticated users
-- Personal task dashboard with statistics
-- Create, read, update and delete tasks (CRUD)
-- Low / Medium / High priority
-- Optional due dates
-- Completed / In Progress status
-- Search by title and description
-- Filter by status and priority
-- User data isolation: normal users can access only their own tasks
-- Staff users can view and manage all tasks
-- Django Admin panel
-- Responsive interface and safe wrapping of long task content
-- Automated Django test suite
-- GitHub Actions continuous integration
+Task Management System is a web application built with Python and Django. It allows users to register, sign in, and manage personal tasks through a responsive dashboard.
 
-## Tech stack
+The project demonstrates a complete Django workflow, including authentication, CRUD operations, relational data, forms, templates, search and filtering, access control, and automated testing. It was developed as a Computer Science final project.
 
-- Python 3.12+
-- Django 6.0.2
-- SQLite
-- Django ORM
-- Django built-in authentication
-- HTML5 / CSS3
-- Django Templates
-- Django TestCase
-- GitHub Actions
+## Key Features
+
+### User accounts and access control
+
+- User registration, login, and logout.
+- Protected pages for authenticated users.
+- Personal task ownership: regular users can access only their own tasks.
+- Staff users can view and manage all tasks.
+- Django Admin interface for administrative management.
+
+### Task management
+
+- Create, view, update, and delete tasks.
+- Set task priority: Low, Medium, or High.
+- Track task progress and completion status.
+- Add optional due dates.
+- Search tasks by title and description.
+- Filter tasks by status and priority.
+- View task statistics on the personal dashboard.
+
+### Interface
+
+- Django templates with HTML and CSS.
+- Responsive layout for different screen sizes.
+- Safe wrapping of long task content.
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Python 3.12+ | Main programming language |
+| Django 6.0.2 | Web framework |
+| SQLite | Local development database |
+| Django ORM | Database models and queries |
+| Django Authentication | Registration, login, and access control |
+| HTML5 / CSS3 | User interface |
+| Django Templates | Server-rendered pages |
+| Django TestCase | Automated application tests |
+| GitHub Actions | Continuous integration |
 
 ## Architecture
 
-The application follows Django's **MVT (Model-View-Template)** pattern.
+The application follows Django's Model-View-Template (MVT) pattern:
 
 ```text
-URL -> View -> Model / Database -> Template -> HTML response
+Browser request
+      |
+      v
+    URL route
+      |
+      v
+     View
+    /    \
+   v      v
+ Model  Form / validation
+   |      |
+   v      v
+Database  Template
+             |
+             v
+        HTML response
 ```
 
-## Project structure
+## Project Structure
 
 ```text
 Task-Management-System/
-├── .github/workflows/    # CI test workflow
-├── config/               # Django project configuration
-├── docs/QA_CHECKLIST.md  # Manual QA test plan
-├── tasks/                # Main application
-│   ├── migrations/
-│   ├── templates/
-│   ├── admin.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── tests.py
-│   ├── urls.py
-│   └── views.py
-├── static/               # CSS and static files
+├── .github/
+│   └── workflows/       # GitHub Actions workflow
+├── config/              # Django project settings and URL configuration
+├── docs/
+│   └── QA_CHECKLIST.md  # Manual QA checklist
+├── tasks/               # Main application
+│   ├── migrations/      # Database migrations
+│   ├── templates/       # Django HTML templates
+│   ├── admin.py         # Django Admin configuration
+│   ├── forms.py         # Forms and validation
+│   ├── models.py        # Task data model
+│   ├── tests.py         # Automated tests
+│   ├── urls.py          # Application routes
+│   └── views.py         # Application views
+├── static/
+│   └── tasks/           # CSS and static assets
+├── .env.example         # Example environment configuration
+├── .gitignore
 ├── manage.py
 ├── requirements.txt
-├── .env.example
 └── README.md
 ```
 
-## Local setup
+## Local Setup — Windows
+
+### Requirements
+
+- Windows 10 or 11.
+- Python 3.12 or newer.
+- `pip` (included with standard Python installations).
 
 ### 1. Clone the repository
 
-```bash
+```powershell
 git clone https://github.com/lacelyn5/Task-Management-System.git
 cd Task-Management-System
 ```
 
+You can also download the repository as a ZIP archive and extract it.
+
 ### 2. Create a virtual environment
 
-Windows:
-
-```bash
+```powershell
 py -m venv .venv
-.venv\Scripts\activate
 ```
 
-macOS / Linux:
+### 3. Activate the virtual environment
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
+**Command Prompt:**
+
+```bat
+.venv\Scripts\activate.bat
 ```
 
-### 3. Install dependencies
+**PowerShell:**
 
-```bash
-pip install -r requirements.txt
+```powershell
+.\.venv\Scripts\Activate.ps1
 ```
 
-### 4. Optional environment configuration
+If PowerShell prevents script activation, use Command Prompt or follow Microsoft's guidance for the execution policy. Do not change system-wide security settings just for this project.
 
-Copy `.env.example` to `.env` and change the secret key if desired.
+### 4. Install dependencies
 
-Windows:
+```powershell
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### 5. Configure environment variables (optional)
+
+The repository contains `.env.example` with the supported local settings:
+
+- `DJANGO_SECRET_KEY`
+- `DJANGO_DEBUG`
+- `DJANGO_ALLOWED_HOSTS`
+
+To create your local `.env` file in PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Or in Command Prompt:
 
 ```bat
 copy .env.example .env
 ```
 
-macOS / Linux:
+For local development, review the example values and replace the placeholder secret key with a new random value. The `.env` file is excluded from Git; do not commit real secrets.
 
-```bash
-cp .env.example .env
-```
+### 6. Apply database migrations
 
-The `.env` file is ignored by Git.
-
-### 5. Apply migrations
-
-```bash
+```powershell
 python manage.py migrate
 ```
 
-### 6. Create an administrator account (optional)
+### 7. Create an administrator account (optional)
 
-```bash
+```powershell
 python manage.py createsuperuser
 ```
 
-### 7. Run the application
+### 8. Start the development server
 
-```bash
+```powershell
 python manage.py runserver
 ```
 
-Application: `http://127.0.0.1:8000/`  
-Admin panel: `http://127.0.0.1:8000/admin/`
+Open the application:
 
-## Run the tests
+**http://127.0.0.1:8000/**
 
-```bash
+Django Admin:
+
+**http://127.0.0.1:8000/admin/**
+
+## Running Tests
+
+Run the automated Django test suite from the project root, with the virtual environment activated:
+
+```powershell
 python manage.py test
 ```
 
-The test suite covers authentication, registration, task defaults, ownership isolation, CRUD permissions, staff access, search, combined filters, long text and dashboard statistics.
+The tests cover areas including:
 
-A separate [manual QA checklist](docs/QA_CHECKLIST.md) is provided for browser and responsive checks. It is a proposed checklist, not a fabricated record of test execution.
+- Registration and authentication.
+- Task creation and default values.
+- User ownership and access isolation.
+- CRUD permissions and staff access.
+- Search and combined filtering.
+- Long task text handling.
+- Dashboard statistics.
 
-For a repository consistency check:
+A separate [manual QA checklist](docs/QA_CHECKLIST.md) is provided for browser and responsive-layout checks. It is a checklist for manual verification, not a claim that every check has been executed.
 
-```bash
+You can also run Django's project consistency checks:
+
+```powershell
 python manage.py check
 python manage.py makemigrations --check --dry-run
 ```
 
-## Main data model
+## Main Data Model
 
-A `Task` contains:
+Each `Task` record includes:
 
-- title
-- description
-- completion status
-- priority
-- due date
-- owner
+- Title.
+- Description.
+- Completion status.
+- Priority.
+- Optional due date.
+- Owner (the authenticated user who created the task).
 
-Each task belongs to an authenticated user. The owner is assigned automatically when a task is created.
+The task owner is assigned automatically when a task is created.
 
-## Security and access control
+## Security and Access Control
 
 - Task management pages require authentication.
-- Normal users can retrieve, edit and delete only their own task records.
-- Unauthorized access to another user's task returns HTTP 404.
+- Regular users can retrieve, edit, and delete only their own task records.
+- Attempts to access another user's task are denied.
 - Staff users can manage all tasks.
-- Django CSRF protection is enabled on POST forms.
+- Django CSRF protection is enabled for POST forms.
 - Password validation uses Django's built-in validators.
 - Registration prevents duplicate email addresses (case-insensitive).
-- Local databases, `.env` files, caches and secrets are excluded from Git.
+- Local databases, `.env` files, caches, and secrets are excluded from Git.
 
-## CI
+## Continuous Integration
 
-Every push and pull request to `main` runs GitHub Actions to:
+The repository includes a GitHub Actions workflow that runs on pushes and pull requests to `main`.
 
-1. install dependencies;
-2. run `python manage.py check`;
-3. verify there are no missing migrations;
-4. apply migrations;
-5. run the automated test suite.
+The workflow installs the project dependencies, runs Django's system check, verifies migration consistency, applies migrations, and executes the automated test suite.
 
-## Future improvements
+See the [Actions tab](https://github.com/lacelyn5/Task-Management-System/actions) for workflow runs and their results.
 
-- Email reminders
-- Task categories and tags
-- File attachments
-- Calendar view
-- Team collaboration
-- PostgreSQL
-- Public deployment
-- Pagination for large task lists
+## Future Improvements
 
-## About this project
+Potential next steps for the application include:
 
-This project was created as a **Computer Science engineering final project**. It demonstrates frontend/backend integration, database operations, authentication, authorization, CRUD logic and automated testing in a complete Django application.
+- Email reminders for upcoming due dates.
+- Task categories and tags.
+- File attachments.
+- Calendar view.
+- Team collaboration features.
+- PostgreSQL support.
+- Public deployment with production settings.
+- Pagination for larger task lists.
 
-## Development note
+These are possible enhancements and are not presented as existing features.
 
-The supplied settings and SQLite configuration are for **local development**. Do not deploy publicly with `DJANGO_DEBUG=True` or the development fallback secret key.
+## Development Notes
+
+The supplied settings and SQLite configuration are intended for local development. Before deploying publicly, configure a secure production secret key, set `DJANGO_DEBUG=False`, configure allowed hosts, and use an appropriately managed production database and hosting environment.
+
+---
+
+**Created by Maksim Kernazhytski**
